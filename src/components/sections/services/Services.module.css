@@ -1,0 +1,229 @@
+/*
+ * The five services as stacked "chapters". On tall desktop screens each card
+ * pins and the next slides over it (the earlier one sinks back, dimmed,
+ * leaving its top edge showing); elsewhere they simply follow one another.
+ * Floating UI cards around each book drift only while their card is on
+ * screen (.live). Transforms and opacity only.
+ */
+
+.item + .item {
+  margin-top: 1.5rem;
+}
+
+@media (min-width: 1024px) and (min-height: 820px) {
+  .item {
+    position: sticky;
+    top: calc(var(--header-offset, 5rem) + 1.25rem + var(--i) * 0.85rem);
+    transition: top 0.5s var(--ease);
+  }
+  .item + .item {
+    margin-top: 22vh;
+  }
+}
+
+.card {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--r-xl);
+  border: 1px solid var(--c-border);
+  background:
+    radial-gradient(120% 90% at 0% 0%, color-mix(in oklab, var(--svc) 16%, transparent), transparent 55%),
+    linear-gradient(180deg, var(--c-surface-raised), var(--c-surface));
+  box-shadow: var(--sh-lifted);
+  transform-origin: 50% 0%;
+}
+/* a gilt hairline along the top edge — the part that shows when stacked */
+.card::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, color-mix(in oklab, var(--c-accent) 70%, transparent), transparent);
+  z-index: 1;
+}
+.dim {
+  position: absolute;
+  inset: 0;
+  z-index: 30;
+  background: var(--c-bg);
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* ── the visual stage ─────────────────────────────────────────── */
+
+.stage {
+  position: relative;
+  min-height: 22rem;
+  overflow: hidden;
+  border-radius: calc(var(--r-xl) - 0.5rem);
+  background:
+    radial-gradient(60% 60% at 50% 55%, color-mix(in oklab, var(--svc) 34%, transparent), transparent 70%),
+    radial-gradient(50% 40% at 50% 100%, var(--c-accent-soft), transparent 75%),
+    var(--c-bg-deep);
+  perspective: 1200px;
+}
+/* faint ruled grid, like a designer's cutting mat */
+.stage::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(var(--c-border) 1px, transparent 1px) 0 0 / 2.5rem 2.5rem,
+    linear-gradient(90deg, var(--c-border) 1px, transparent 1px) 0 0 / 2.5rem 2.5rem;
+  opacity: 0.35;
+  mask-image: radial-gradient(70% 70% at 50% 50%, #000, transparent 80%);
+}
+.bigNum {
+  position: absolute;
+  right: 1.25rem;
+  bottom: -1.5rem;
+  font-family: var(--ff-num), var(--ff-sans), sans-serif;
+  font-weight: 200;
+  font-size: clamp(7rem, 14vw, 12rem);
+  line-height: 1;
+  color: color-mix(in oklab, var(--c-text) 7%, transparent);
+  pointer-events: none;
+}
+.rig {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+}
+/* phones: the whole little scene, a size smaller, so its cards frame the book instead of covering it */
+@media (max-width: 639.98px) {
+  .stage {
+    min-height: 25rem;
+  }
+  .rig {
+    scale: 0.7;
+  }
+  .phoneAt {
+    inset: var(--phone-inset) !important;
+  }
+}
+.book {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  translate: -50% -50%;
+  transform-style: preserve-3d;
+}
+.bookShadow {
+  position: absolute;
+  left: 50%;
+  top: calc(50% + 7.5rem);
+  width: 12rem;
+  height: 2rem;
+  translate: -50% 0;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, rgb(0 0 0 / 0.55), transparent);
+  filter: blur(2px);
+}
+
+/* floating UI cards — lifted toward the viewer so the turned book never covers them
+   (the individual `translate` composes with the transforms GSAP writes) */
+.float {
+  position: absolute;
+  z-index: 2;
+  translate: 0 0 80px;
+}
+.bob {
+  animation: bob 6s ease-in-out infinite;
+  animation-play-state: paused;
+}
+.live .bob {
+  animation-play-state: running;
+}
+.float:nth-of-type(2n) .bob {
+  animation-duration: 7.2s;
+  animation-delay: -2.4s;
+}
+.float:nth-of-type(3n) .bob {
+  animation-duration: 8.4s;
+  animation-delay: -4.1s;
+}
+@keyframes bob {
+  0%,
+  100% {
+    transform: translateY(0) rotate(var(--tilt, 0deg));
+  }
+  50% {
+    transform: translateY(-10px) rotate(var(--tilt, 0deg));
+  }
+}
+.chip {
+  border: 1px solid var(--c-border-strong);
+  background: color-mix(in oklab, var(--c-surface-raised) 88%, transparent);
+  backdrop-filter: blur(10px);
+  box-shadow: var(--sh-soft);
+}
+
+/* little live details */
+.pulse {
+  animation: pulse 2s ease-out infinite;
+  animation-play-state: paused;
+}
+.live .pulse {
+  animation-play-state: running;
+}
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 color-mix(in oklab, var(--c-success) 60%, transparent);
+  }
+  100% {
+    box-shadow: 0 0 0 8px transparent;
+  }
+}
+.typing span {
+  display: inline-block;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--c-text-muted);
+  animation: typing 1.2s ease-in-out infinite;
+  animation-play-state: paused;
+}
+.live .typing span {
+  animation-play-state: running;
+}
+.typing span:nth-child(2) {
+  animation-delay: 0.15s;
+}
+.typing span:nth-child(3) {
+  animation-delay: 0.3s;
+}
+@keyframes typing {
+  0%,
+  60%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.45;
+  }
+  30% {
+    transform: translateY(-3px);
+    opacity: 1;
+  }
+}
+.barcode {
+  background: repeating-linear-gradient(
+    90deg,
+    var(--c-paper-ink) 0 2px,
+    transparent 2px 3px,
+    var(--c-paper-ink) 3px 4px,
+    transparent 4px 6px,
+    var(--c-paper-ink) 6px 9px,
+    transparent 9px 10px
+  );
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bob,
+  .pulse,
+  .typing span {
+    animation: none;
+  }
+  .item {
+    transition: none;
+  }
+}

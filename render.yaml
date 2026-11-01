@@ -1,0 +1,40 @@
+# Render blueprint for the API (free web service). The site itself is the
+# static export in out/ (Netlify); see DEPLOY.md.
+services:
+  - type: web
+    name: storyshelf-api
+    runtime: docker
+    plan: free
+    dockerfilePath: ./backend/Dockerfile
+    dockerContext: .
+    healthCheckPath: /api/v1/health
+    envVars:
+      - key: APP_ENV
+        value: production
+      - key: TRUST_PROXY_HEADERS
+        value: "true"
+      - key: API_CORS_ORIGINS
+        sync: false # e.g. https://storyshelf.netlify.app
+      - key: JWT_SECRET
+        generateValue: true
+      - key: MONGODB_URI
+        sync: false
+      - key: MONGODB_DB
+        value: ai_library
+      - key: ADMIN_EMAIL
+        sync: false
+      - key: ADMIN_PASSWORD
+        sync: false
+      # LLM keys: add the ones you have; missing providers are skipped
+      - key: GROQ_API_KEY
+        sync: false
+      - key: GEMINI_API_KEY
+        sync: false
+      - key: CEREBRAS_API_KEY
+        sync: false
+      - key: MISTRAL_API_KEY
+        sync: false
+      - key: GITHUB_MODELS_TOKEN
+        sync: false
+      - key: OPENROUTER_API_KEY
+        sync: false

@@ -1,0 +1,317 @@
+@import "tailwindcss";
+
+/*
+ * Design tokens come from src/theme (injected as --c-*, --r-*, --sh-* vars by
+ * <ThemeStyle/>). This block only maps them to Tailwind utilities — never put
+ * raw colours here.
+ */
+@theme inline {
+  --color-bg: var(--c-bg);
+  --color-deep: var(--c-bg-deep);
+  --color-surface: var(--c-surface);
+  --color-raised: var(--c-surface-raised);
+  --color-hover: var(--c-surface-hover);
+  --color-line: var(--c-border);
+  --color-line-strong: var(--c-border-strong);
+  --color-fg: var(--c-text);
+  --color-muted: var(--c-text-muted);
+  --color-faint: var(--c-text-faint);
+  --color-accent: var(--c-accent);
+  --color-accent-bright: var(--c-accent-bright);
+  --color-accent-soft: var(--c-accent-soft);
+  --color-on-accent: var(--c-accent-contrast);
+  --color-ember: var(--c-ember);
+  --color-success: var(--c-success);
+  --color-warning: var(--c-warning);
+  --color-danger: var(--c-danger);
+  --color-info: var(--c-info);
+  --color-paper: var(--c-paper);
+  --color-paper-ink: var(--c-paper-ink);
+  --color-edit-mark: var(--c-edit-mark);
+  --color-cloth: var(--c-cloth);
+  --color-overlay: var(--c-overlay);
+  --color-kickstart: var(--c-plan-kickstart);
+  --color-levelup: var(--c-plan-level-up);
+  --color-pro: var(--c-plan-pro);
+
+  --font-display: var(--ff-display), "Cormorant Garamond", Georgia, serif;
+  --font-serif: var(--ff-serif), Georgia, serif;
+  --font-sans: var(--ff-sans), system-ui, sans-serif;
+  --font-mono: var(--ff-mono), ui-monospace, monospace;
+  --font-num: var(--ff-num), var(--ff-sans), system-ui, sans-serif;
+
+  --radius-sm: var(--r-sm);
+  --radius-md: var(--r-md);
+  --radius-lg: var(--r-lg);
+  --radius-xl: var(--r-xl);
+  --radius-pill: var(--r-pill);
+
+  --shadow-soft: var(--sh-soft);
+  --shadow-lifted: var(--sh-lifted);
+  --shadow-glow: var(--sh-glow);
+
+  --ease-book: var(--ease);
+  --ease-out-book: var(--ease-out);
+
+  --animate-marquee: marquee 40s linear infinite;
+  --animate-float: float 6s ease-in-out infinite;
+}
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+@keyframes shimmer {
+  from { background-position: -200% 0; }
+  to { background-position: 200% 0; }
+}
+
+@layer base {
+  :root {
+    /* site header height (h-16 / md:h-20); --header-offset follows it and
+       drops to 0 while the header is hidden on scroll */
+    --header-h: 4rem;
+    --header-offset: var(--header-h);
+  }
+  @media (min-width: 48rem) {
+    :root {
+      --header-h: 5rem;
+    }
+  }
+  html {
+    overflow-x: clip;
+    background: var(--c-bg);
+    color: var(--c-text);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+  body {
+    background: var(--c-bg);
+    color: var(--c-text);
+    font-family: var(--font-sans);
+    min-height: 100svh;
+    overflow-x: clip;
+  }
+  ::selection {
+    background: var(--c-accent);
+    color: var(--c-accent-contrast);
+  }
+  :focus-visible {
+    outline: 2px solid var(--c-accent);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+  h1, h2, h3, h4 {
+    text-wrap: balance;
+  }
+  p {
+    text-wrap: pretty;
+  }
+  /* Lenis */
+  html.lenis, html.lenis body { height: auto; }
+  .lenis.lenis-smooth { scroll-behavior: auto !important; }
+  .lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+  .lenis.lenis-stopped { overflow: clip; }
+}
+
+@layer components {
+  /* a link to a screen that is switched off (src/config/features.ts) */
+  .link-off {
+    cursor: not-allowed;
+  }
+  .container-x {
+    width: 100%;
+    max-width: 1320px;
+    margin-inline: auto;
+    padding-inline: clamp(1rem, 4vw, 2.5rem);
+  }
+  .eyebrow {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--c-accent);
+  }
+  .display-xl {
+    font-family: var(--font-display);
+    font-weight: 300;
+    line-height: 0.95;
+    letter-spacing: -0.02em;
+    font-size: clamp(3rem, 8vw, 7.5rem);
+  }
+  .display-lg {
+    font-family: var(--font-display);
+    font-weight: 300;
+    line-height: 1;
+    letter-spacing: -0.015em;
+    font-size: clamp(2.4rem, 5.5vw, 5rem);
+  }
+  .display-md {
+    font-family: var(--font-display);
+    font-weight: 400;
+    line-height: 1.05;
+    font-size: clamp(1.9rem, 3.6vw, 3.2rem);
+  }
+  /* descendants too: SplitText wraps words in new elements, which would
+     otherwise render transparent text without the clipped background */
+  .gold-text,
+  .gold-text * {
+    background: linear-gradient(100deg, var(--c-accent) 0%, var(--c-accent-bright) 45%, var(--c-accent) 70%);
+    background-size: 200% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  /* figures: prices, stats, counters (see fontNum in src/theme/fonts.ts) */
+  .num {
+    font-family: var(--font-num);
+    font-variant-numeric: lining-nums tabular-nums;
+    font-feature-settings: "lnum", "tnum";
+    letter-spacing: -0.02em;
+  }
+  .hairline {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--c-border-strong), transparent);
+  }
+  .glass {
+    background: color-mix(in oklab, var(--c-surface) 72%, transparent);
+    backdrop-filter: blur(14px) saturate(140%);
+    -webkit-backdrop-filter: blur(14px) saturate(140%);
+  }
+  .skeleton {
+    background: linear-gradient(90deg, var(--c-surface) 0%, var(--c-surface-hover) 50%, var(--c-surface) 100%);
+    background-size: 200% 100%;
+    animation: shimmer 1.6s linear infinite;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+@keyframes panel-in {
+  from { opacity: 0; transform: translateY(14px); filter: blur(6px); }
+  to { opacity: 1; transform: none; filter: none; }
+}
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+.animate-panel-in { animation: panel-in 0.7s var(--ease-out) both; }
+.animate-fade-in { animation: fade-in 0.6s var(--ease-out) both; }
+
+/* logo line-draw */
+@keyframes trace { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
+@keyframes pad-in { from { opacity: 0; transform: scale(0.2); } to { opacity: 1; transform: none; } }
+.logo-trace { stroke-dasharray: 1; stroke-dashoffset: 1; animation: trace 1.1s var(--ease-out) forwards; }
+.logo-pad { opacity: 0; transform-box: fill-box; transform-origin: center; animation: pad-in 0.5s var(--ease-out) forwards; }
+
+/* page transition curtain */
+@keyframes curtain-up {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-101%); }
+}
+@keyframes curtain-line {
+  0% { transform: scaleX(0); opacity: 1; }
+  60% { transform: scaleX(1); opacity: 1; }
+  100% { transform: scaleX(1); opacity: 0; }
+}
+@keyframes page-in {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: none; }
+}
+.page-curtain { animation: curtain-up 0.9s var(--ease) 0.15s both; }
+.page-curtain-line { animation: curtain-line 0.6s var(--ease-out) both; transform-origin: left; }
+/* fill "backwards" (not "both") so no transform lingers — a lingering transform
+   would become the containing block for position:fixed (breaks GSAP pinning) */
+.page-enter { animation: page-in 0.9s var(--ease-out) 0.35s backwards; }
+
+/* while the opening intro plays: no scrolling, and hero entrances wait for it */
+html[data-intro="on"] {
+  overflow: hidden;
+}
+html[data-intro="on"] #main :is(.animate-panel-in, .animate-fade-in) {
+  animation-play-state: paused;
+}
+
+/* plan comparison: sticky header cells need an opaque fill (rows scroll under them) */
+.cmp-head {
+  background: var(--c-surface-raised);
+  box-shadow: 0 1px 0 var(--c-border-strong);
+}
+.cmp-head.is-popular {
+  background:
+    linear-gradient(color-mix(in oklab, var(--c-accent) 6%, transparent), color-mix(in oklab, var(--c-accent) 6%, transparent)),
+    var(--c-surface-raised);
+}
+
+/* range sliders (calculators): gold thumb on the filled track */
+.range::-webkit-slider-thumb {
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--c-accent);
+  border: 4px solid var(--c-bg);
+  box-shadow: 0 0 0 1px var(--c-accent), 0 4px 14px -4px rgba(0, 0, 0, 0.6);
+  cursor: grab;
+  transition: transform 0.2s ease;
+}
+.range::-moz-range-thumb {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--c-accent);
+  border: 4px solid var(--c-bg);
+  box-shadow: 0 0 0 1px var(--c-accent);
+  cursor: grab;
+}
+.range:active::-webkit-slider-thumb {
+  transform: scale(1.15);
+  cursor: grabbing;
+}
+.range:focus-visible {
+  outline: 2px solid var(--c-accent);
+  outline-offset: 6px;
+}
+
+/* scroll reveal */
+.reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.9s var(--ease-out), transform 0.9s var(--ease-out); transition-delay: var(--d, 0ms); }
+.reveal.is-in { opacity: 1; transform: none; }
+
+/* film grain overlay */
+.grain::after {
+  content: "";
+  position: fixed;
+  /* inset 0 + background-position jitter: an oversized fixed layer would
+     widen the viewport's scroll area (horizontal scroll on phones) */
+  inset: 0;
+  z-index: 60;
+  pointer-events: none;
+  opacity: var(--grain-opacity);
+  background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20width%3D%27200%27%20height%3D%27200%27%3E%3Cfilter%20id%3D%27n%27%3E%3CfeTurbulence%20type%3D%27fractalNoise%27%20baseFrequency%3D%270.85%27%20numOctaves%3D%273%27%20stitchTiles%3D%27stitch%27%2F%3E%3C%2Ffilter%3E%3Crect%20width%3D%27100%25%27%20height%3D%27100%25%27%20filter%3D%27url%28%23n%29%27%2F%3E%3C%2Fsvg%3E");
+  animation: grain 1.2s steps(6) infinite;
+}
+@keyframes grain {
+  0%, 100% { background-position: 0 0; }
+  20% { background-position: -37px 23px; }
+  40% { background-position: 29px -41px; }
+  60% { background-position: -19px -11px; }
+  80% { background-position: 43px 31px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal { opacity: 1; transform: none; }
+  .page-curtain { display: none; }
+  .grain::after { animation: none; }
+}

@@ -1,0 +1,122 @@
+[
+  {
+    "id": "f1",
+    "category": "Plans",
+    "q": "Which plan is right for me?",
+    "a": "Kickstart suits a polished manuscript that needs to become a book. Level-Up adds copy editing, three cover concepts and an eBook. Pro is a full launch with extensive editing, colour options, an audiobook and paid advertising. Take the 30-second plan quiz on the Plans page, or book a free consultation."
+  },
+  {
+    "id": "f2",
+    "category": "Plans",
+    "q": "Are prices inclusive of GST?",
+    "a": "No. Plan prices are shown excluding GST; 18% GST is added at checkout and itemised on your quote and invoice."
+  },
+  {
+    "id": "f3",
+    "category": "Plans",
+    "q": "What if my book is longer than 350 pages?",
+    "a": "Each plan includes formatting for approximately 350 pages. Longer manuscripts are welcome — formatting beyond that is a small add-on per 100 pages."
+  },
+  {
+    "id": "f4",
+    "category": "Plans",
+    "q": "Can I upgrade my plan later?",
+    "a": "Yes. You can upgrade at any point before production finishes and pay only the difference."
+  },
+  {
+    "id": "f5",
+    "category": "Royalty",
+    "q": "How much royalty do I earn?",
+    "a": "You earn a better share of the profit on every sale — calculated from the retail price minus the printing cost and the retailer's share. There are no hidden deductions."
+  },
+  {
+    "id": "f6",
+    "category": "Royalty",
+    "q": "How often are royalties paid?",
+    "a": "Kickstart and Level-Up pay out annually; Pro pays out quarterly. Every payout comes with a transparent sales statement in your dashboard."
+  },
+  {
+    "id": "f7",
+    "category": "ISBN & Rights",
+    "q": "Who owns the copyright?",
+    "a": "You do — always. Our agreement is non-exclusive, so you remain free to publish your work elsewhere."
+  },
+  {
+    "id": "f8",
+    "category": "ISBN & Rights",
+    "q": "Do I get an ISBN?",
+    "a": "Yes. Every plan includes an ISBN and a retail barcode."
+  },
+  {
+    "id": "f9",
+    "category": "ISBN & Rights",
+    "q": "How do I sign the agreement?",
+    "a": "Digitally. Once you confirm your plan we send a secure link; it takes a couple of minutes to review and sign."
+  },
+  {
+    "id": "f10",
+    "category": "Distribution",
+    "q": "Where will my book be sold?",
+    "a": "On national online stores (such as Amazon.in and Flipkart), global channels, the StoryShelf Store, and via print-on-demand. Level-Up and Pro add Google Play and EPUB distribution."
+  },
+  {
+    "id": "f11",
+    "category": "Distribution",
+    "q": "What is print-on-demand (POD)?",
+    "a": "Copies are printed when they are ordered, so your book never goes out of stock and there is no warehouse or wasted inventory."
+  },
+  {
+    "id": "f12",
+    "category": "Distribution",
+    "q": "How long until my book is live?",
+    "a": "Typically 6–8 weeks from signing, depending on how much editing is needed and how quickly you approve designs and proofs."
+  },
+  {
+    "id": "f13",
+    "category": "Editing & Design",
+    "q": "Will editors change my voice?",
+    "a": "No. Edits are suggestions in tracked changes. You accept, reject or discuss each one — the final text is always yours."
+  },
+  {
+    "id": "f14",
+    "category": "Editing & Design",
+    "q": "What if I don't like the cover concepts?",
+    "a": "Tell us why. Your designer refines the concepts based on your feedback; we iterate until the cover feels right."
+  },
+  {
+    "id": "f15",
+    "category": "Editing & Design",
+    "q": "Can I have colour pages?",
+    "a": "Full-colour interiors are available on the Pro plan — ideal for children's books, cookbooks and photo-rich non-fiction."
+  },
+  {
+    "id": "f16",
+    "category": "Payments",
+    "q": "How do I pay?",
+    "a": "UPI, cards, net banking or EMI. You can pay in two instalments: on signing and on approval of the final proofs."
+  },
+  {
+    "id": "f17",
+    "category": "Payments",
+    "q": "Is there a refund policy?",
+    "a": "If you cancel before work starts you receive a full refund. After that, refunds are pro-rated to the stages not yet delivered."
+  },
+  {
+    "id": "f18",
+    "category": "Support",
+    "q": "Who do I contact during publishing?",
+    "a": "Your dedicated Publication Manager. You can also chat with us, raise a ticket from your dashboard, call, or message us on WhatsApp."
+  },
+  {
+    "id": "f19",
+    "category": "Support",
+    "q": "Do you help after my book is published?",
+    "a": "Yes — post-publication assistance is included in every plan: corrections, reprints, listing updates and marketing advice."
+  },
+  {
+    "id": "f20",
+    "category": "Support",
+    "q": "What are your support hours?",
+    "a": "Monday to Saturday, 9:30 am – 7:00 pm IST. Tickets raised outside these hours are answered the next working day."
+  }
+]

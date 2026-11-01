@@ -1,0 +1,11 @@
+{
+  "files.watcherExclude": {
+    "**/.next/**": true,
+    "**/.playwright-mcp/**": true,
+    "**/node_modules/**": true
+  },
+  "search.exclude": {
+    "**/.next": true,
+    "**/.playwright-mcp": true
+  }
+}
